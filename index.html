@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>简易围棋</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <button id="toggleSidebar" aria-label="切换侧栏">☰</button>
+        <h1>围棋</h1>
+      </div>
+      <nav>
+        <a class="nav-link active" href="#">主页</a>
+        <a class="nav-link disabled" href="#" aria-disabled="true">新功能（待实现）</a>
+      </nav>
+    </aside>
+    <main class="content">
+      <header class="content-header">
+        <h2>围棋对局</h2>
+        <div class="controls">
+          <button id="clearBoard">清空棋盘</button>
+          <button id="toggleNumbering">切换手数表示</button>
+        </div>
+      </header>
+      <section class="status-panel">
+        <div class="status-item">当前执子：<span id="currentPlayer">黑</span></div>
+        <div class="status-item">对局手数：<span id="moveCount">0</span></div>
+        <div class="status-item">黑提子数：<span id="blackCaptures">0</span></div>
+        <div class="status-item">白提子数：<span id="whiteCaptures">0</span></div>
+        <div class="status-item">手数显示：<span id="numberingMode">仅最后一手</span></div>
+      </section>
+      <section class="board-wrapper">
+        <canvas id="board" width="780" height="780" aria-label="围棋棋盘" role="img"></canvas>
+      </section>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
