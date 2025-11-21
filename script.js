@@ -4,10 +4,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const mainContent = document.getElementById('mainContent');
     const toggleBtn = document.getElementById('toggleBtn');
 
+    // 创建外部菜单按钮
+    const overlayToggle = document.createElement('button');
+    overlayToggle.className = 'menu-toggle-overlay';
+    overlayToggle.textContent = '☰';
+    overlayToggle.setAttribute('aria-label', 'Toggle sidebar');
+    document.body.appendChild(overlayToggle);
+
     // 切换侧边栏状态
     function toggleSidebar() {
         sidebar.classList.toggle('collapsed');
         mainContent.classList.toggle('expanded');
+        
+        // 切换外部菜单按钮显示状态
+        if (sidebar.classList.contains('collapsed')) {
+            overlayToggle.classList.add('show');
+        } else {
+            overlayToggle.classList.remove('show');
+        }
         
         // 保存侧边栏状态到 localStorage
         const isCollapsed = sidebar.classList.contains('collapsed');
@@ -17,22 +31,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // 点击切换按钮
     toggleBtn.addEventListener('click', toggleSidebar);
 
-    // 点击主内容区域的菜单图标（当侧边栏收起时）
-    mainContent.addEventListener('click', function(e) {
-        if (sidebar.classList.contains('collapsed')) {
-            const rect = mainContent.getBoundingClientRect();
-            // 检查点击位置是否在左上角的菜单图标区域
-            if (e.clientX < 50 && e.clientY < 50) {
-                toggleSidebar();
-            }
-        }
-    });
+    // 点击外部菜单按钮
+    overlayToggle.addEventListener('click', toggleSidebar);
 
     // 从 localStorage 恢复侧边栏状态
     const savedState = localStorage.getItem('sidebarCollapsed');
     if (savedState === 'true') {
         sidebar.classList.add('collapsed');
         mainContent.classList.add('expanded');
+        overlayToggle.classList.add('show');
     }
 
     // 导航链接点击事件

@@ -245,8 +245,7 @@ body {
 }
 
 /* 收起按钮在侧边栏外显示 */
-.sidebar.collapsed ~ .main-content::before {
-    content: '☰';
+.menu-toggle-overlay {
     position: fixed;
     left: 10px;
     top: 10px;
@@ -258,4 +257,10 @@ body {
     z-index: 999;
     font-size: 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+    display: none;
+}
+
+.menu-toggle-overlay.show {
+    display: block;
 }
