@@ -1,4 +1,8 @@
 /* 全局样式 */
+:root {
+    --sidebar-width: 260px;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -17,7 +21,7 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    width: 260px;
+    width: var(--sidebar-width);
     height: 100vh;
     background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
     color: #ecf0f1;
@@ -27,7 +31,7 @@ body {
 }
 
 .sidebar.collapsed {
-    transform: translateX(-260px);
+    transform: translateX(calc(-1 * var(--sidebar-width)));
 }
 
 .sidebar-header {
@@ -100,7 +104,7 @@ body {
 
 /* 主内容区域样式 */
 .main-content {
-    margin-left: 260px;
+    margin-left: var(--sidebar-width);
     min-height: 100vh;
     transition: margin-left 0.3s ease;
     background-color: #f5f5f5;

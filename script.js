@@ -1,5 +1,7 @@
 // 侧边栏切换功能
 document.addEventListener('DOMContentLoaded', function() {
+    const MOBILE_BREAKPOINT = 768;
+    
     const sidebar = document.getElementById('sidebar');
     const mainContent = document.getElementById('mainContent');
     const toggleBtn = document.getElementById('toggleBtn');
@@ -54,26 +56,14 @@ document.addEventListener('DOMContentLoaded', function() {
             // 添加活动状态到当前链接
             this.classList.add('active');
             
-            // 这里可以添加页面内容切换逻辑
-            const targetSection = this.getAttribute('href').substring(1);
-            // Future enhancement: Load content dynamically based on targetSection
-            
             // 在移动设备上，点击导航后自动收起侧边栏
-            if (window.innerWidth <= 768) {
+            if (window.innerWidth <= MOBILE_BREAKPOINT) {
                 toggleSidebar();
             }
         });
     });
 
-    // 处理窗口大小变化
-    let resizeTimer;
-    window.addEventListener('resize', function() {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function() {
-            // Optional: Auto-expand sidebar in desktop view
-            // Keeping collapsed state to respect user preference
-        }, 250);
-    });
+
 
     // 添加平滑滚动效果
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
