@@ -1,0 +1,86 @@
+// 侧边栏切换功能
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent');
+    const toggleBtn = document.getElementById('toggleBtn');
+
+    // 切换侧边栏状态
+    function toggleSidebar() {
+        sidebar.classList.toggle('collapsed');
+        mainContent.classList.toggle('expanded');
+        
+        // 保存侧边栏状态到 localStorage
+        const isCollapsed = sidebar.classList.contains('collapsed');
+        localStorage.setItem('sidebarCollapsed', isCollapsed);
+    }
+
+    // 点击切换按钮
+    toggleBtn.addEventListener('click', toggleSidebar);
+
+    // 点击主内容区域的菜单图标（当侧边栏收起时）
+    mainContent.addEventListener('click', function(e) {
+        if (sidebar.classList.contains('collapsed')) {
+            const rect = mainContent.getBoundingClientRect();
+            // 检查点击位置是否在左上角的菜单图标区域
+            if (e.clientX < 50 && e.clientY < 50) {
+                toggleSidebar();
+            }
+        }
+    });
+
+    // 从 localStorage 恢复侧边栏状态
+    const savedState = localStorage.getItem('sidebarCollapsed');
+    if (savedState === 'true') {
+        sidebar.classList.add('collapsed');
+        mainContent.classList.add('expanded');
+    }
+
+    // 导航链接点击事件
+    const navLinks = document.querySelectorAll('.sidebar-nav a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // 移除所有活动状态
+            navLinks.forEach(l => l.classList.remove('active'));
+            
+            // 添加活动状态到当前链接
+            this.classList.add('active');
+            
+            // 这里可以添加页面内容切换逻辑
+            const targetSection = this.getAttribute('href').substring(1);
+            console.log('导航到:', targetSection);
+            
+            // 在移动设备上，点击导航后自动收起侧边栏
+            if (window.innerWidth <= 768) {
+                toggleSidebar();
+            }
+        });
+    });
+
+    // 处理窗口大小变化
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            // 在桌面视图中，如果侧边栏是收起的，显示它
+            if (window.innerWidth > 768 && sidebar.classList.contains('collapsed')) {
+                // 可以选择在桌面视图中自动展开侧边栏
+                // toggleSidebar();
+            }
+        }, 250);
+    });
+
+    // 添加平滑滚动效果
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+            if (targetId !== '#' && document.querySelector(targetId)) {
+                e.preventDefault();
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
