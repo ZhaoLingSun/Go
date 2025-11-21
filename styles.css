@@ -219,10 +219,6 @@ body {
         transform: translateX(-100%);
     }
 
-    .sidebar.collapsed {
-        transform: translateX(-100%);
-    }
-
     .sidebar:not(.collapsed) {
         transform: translateX(0);
     }

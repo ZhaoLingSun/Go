@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // 这里可以添加页面内容切换逻辑
             const targetSection = this.getAttribute('href').substring(1);
-            console.log('导航到:', targetSection);
+            // Future enhancement: Load content dynamically based on targetSection
             
             // 在移动设备上，点击导航后自动收起侧边栏
             if (window.innerWidth <= 768) {
@@ -70,11 +70,8 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', function() {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(function() {
-            // 在桌面视图中，如果侧边栏是收起的，显示它
-            if (window.innerWidth > 768 && sidebar.classList.contains('collapsed')) {
-                // 可以选择在桌面视图中自动展开侧边栏
-                // toggleSidebar();
-            }
+            // Optional: Auto-expand sidebar in desktop view
+            // Keeping collapsed state to respect user preference
         }, 250);
     });
 
